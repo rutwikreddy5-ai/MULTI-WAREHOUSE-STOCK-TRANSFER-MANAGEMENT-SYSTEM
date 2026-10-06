@@ -1,0 +1,16 @@
+{
+  "name": "warehouse-management",
+  "version": "1.0.0",
+  "description": "Warehouse management app: Express + MySQL (warehouse_management)",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  }
+}

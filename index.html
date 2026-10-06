@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warehouse Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Warehouse Management</h1>
+    <span id="dbBadge" class="badge">connecting…</span>
+  </header>
+
+  <nav id="tabs">
+    <button data-tab="dashboard" class="active">Dashboard</button>
+    <button data-tab="warehouses">Warehouses</button>
+    <button data-tab="products">Products</button>
+    <button data-tab="stock">Stock</button>
+    <button data-tab="transfers">Transfers</button>
+  </nav>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <main>
+    <!-- Dashboard -->
+    <section id="dashboard" class="tab">
+      <div class="cards" id="statCards"></div>
+      <h2>Low stock (under 50 units)</h2>
+      <table id="lowStockTable"><thead><tr><th>Warehouse</th><th>Product</th><th>Quantity</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- Warehouses -->
+    <section id="warehouses" class="tab hidden">
+      <form id="warehouseForm" class="inline-form">
+        <input type="hidden" name="warehouse_id">
+        <input name="name" placeholder="Name" required>
+        <input name="location" placeholder="Location" required>
+        <input name="capacity" type="number" min="0" placeholder="Capacity">
+        <button type="submit">Save</button>
+        <button type="button" class="secondary" data-reset="warehouseForm">Clear</button>
+      </form>
+      <table id="warehouseTable"><thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Capacity</th><th>Units stored</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="tab hidden">
+      <form id="productForm" class="inline-form">
+        <input type="hidden" name="product_id">
+        <input name="sku" placeholder="SKU" required>
+        <input name="name" placeholder="Name" required>
+        <input name="category" placeholder="Category">
+        <input name="unit_price" type="number" min="0" step="0.01" placeholder="Unit price">
+        <button type="submit">Save</button>
+        <button type="button" class="secondary" data-reset="productForm">Clear</button>
+      </form>
+      <table id="productTable"><thead><tr><th>ID</th><th>SKU</th><th>Name</th><th>Category</th><th>Price</th><th>Total stock</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- Stock -->
+    <section id="stock" class="tab hidden">
+      <form id="stockForm" class="inline-form">
+        <select name="warehouse_id" required></select>
+        <select name="product_id" required></select>
+        <input name="quantity" type="number" min="1" placeholder="Quantity to add" required>
+        <button type="submit">Add stock</button>
+      </form>
+      <div class="filter">
+        <label>Filter by warehouse <select id="stockFilter"></select></label>
+      </div>
+      <table id="stockTable"><thead><tr><th>Warehouse</th><th>SKU</th><th>Product</th><th>Quantity</th><th>Updated</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- Transfers -->
+    <section id="transfers" class="tab hidden">
+      <form id="transferForm" class="stack-form">
+        <div class="inline-form">
+          <label>From <select name="from_warehouse_id" required></select></label>
+          <label>To <select name="to_warehouse_id" required></select></label>
+          <input name="remarks" placeholder="Remarks (optional)">
+        </div>
+        <div id="transferItems"></div>
+        <div class="inline-form">
+          <button type="button" class="secondary" id="addItemBtn">+ Add item</button>
+          <button type="submit">Transfer stock</button>
+        </div>
+      </form>
+      <table id="transferTable"><thead><tr><th>ID</th><th>Date</th><th>From</th><th>To</th><th>Items</th><th>Status</th><th>Remarks</th></tr></thead><tbody></tbody></table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
